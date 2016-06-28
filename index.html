@@ -1,0 +1,79 @@
+<!doctype html>
+<html ng-app="EsConnector">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js"></script>
+    <script language="javascript" type="text/javascript" src="flot/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="flot/jquery.flot.js"></script>
+    <script src="elasticsearch.angular.js"></script>
+    <script src="es_connect.js"></script>
+    <script src="chart.js"></script>
+    <script>
+    </script>
+  </head>
+  <body>
+    <div ng-controller="QueryController" >
+    <div >
+
+     <span> choose mount type 
+      <select ng-change="plotCharts()" ng-model="current_mount" ng-options="o as o for o in mount_type">
+	 
+      </select>
+      </span>
+      
+      <!--newly added code-->
+      <span> choose dedupe
+      <select ng-change="plotCharts()" ng-model="current_dedupe" ng-options="o as o for o in dedupe">
+		 
+      </select>
+      </span>
+      
+       <span> choose y axis param
+      <select ng-change="plotCharts()" ng-model="y_axis_param" ng-options="o as o for o in y_axis_param_options">
+		 
+      </select>
+      </span>
+       
+       
+       <!--
+       <select ng-change="plotCharts()" ng-model="current_mount" ng-options="o as o for o in mount_type">
+
+      </select>
+
+	 <select ng-change="plotCharts()" ng-model="current_mount" ng-options="o as o for o in mount_type">
+
+      </select>
+       <select ng-change="plotCharts()" ng-model="current_mount" ng-options="o as o for o in mount_type">
+
+      </select> --!>
+
+       
+
+      <!--newly added code-->
+
+        <table border="2px">
+          <tr>
+          <td>Run name</td>
+          <td ng-repeat="param in y_axis_param_options">{{param}}</td>
+          
+          </tr>
+          <tr ng-repeat="item in totalIOPS">
+         <!-- <td>{{item['_source']['Storage']}}</td>
+          <td>{{item['_source']['Instance']}}</td> -->
+         <td>{{runs[$index]}}</td>
+         <td>{{item[1]}}</td>
+		 <td>{{totalBw[$index][1]}}</td>
+        </tr>
+        </table>
+        
+        <div id="placeholder" style="width:1600px;height:300px"></div>
+
+
+    </div>
+    <br>
+    Above this line ^^^  should be the results of a test search on the ElasticSearch server.
+    {{dataSum}}
+    </div>
+    </body>
+    
+</html>
